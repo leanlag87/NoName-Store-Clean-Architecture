@@ -1,0 +1,17 @@
+{
+    "extends": "../../tsconfig.json", //Hereda la configuración de la raíz
+    "compilerOptions": {
+      "composite": true, //Permite que otros paquetes lo referencien
+      "declaration": true, //Genera los archivos .d.ts para exportar los tipos
+      "outDir": "dist", //Salida de los archivos compilados van a apps/backend/dist/
+      "rootDir": "src", //Directorio raíz de los archivos fuente está en apps/backend/src/
+      "noEmit": false, //SÍ genera archivos (contrario a la raíz)
+      "module": "commonjs", //Usar CommonJS para Node.js
+      "target": "es2020" //ECMAScript 2020
+    },
+    "include": ["src/**/*"], //Solo compila archivos de la carpeta src/
+    "exclude": ["node_modules", "dist", "**/*.test.ts"], //Excluye las carpetas node_modules, dist y los archivos de test
+    "references": [ //Referencia al paquete domain  
+      { "path": "../../domain" }
+    ]
+  }

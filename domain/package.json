@@ -9,10 +9,13 @@
     "test": "vitest",
     "clean": "rm -rf dist"
   },
-  "keywords": ["domain", "clean-architecture", "typescript"],
+  "keywords": [
+    "domain",
+    "clean-architecture",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
-  
   "devDependencies": {
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"

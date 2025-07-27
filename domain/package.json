@@ -1,5 +1,6 @@
 {
   "name": "@no-name-store/domain",
+  "type": "module",
   "version": "1.0.0",
   "description": "Domain layer for NoName Store - Clean Architecture",
   "main": "dist/index.js",

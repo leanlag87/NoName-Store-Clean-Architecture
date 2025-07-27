@@ -1,5 +1,6 @@
 {
   "name": "noname-store-clean-architecture",
+  "type": "module",
   "private": true,
   "workspaces": [
     "apps/*",

@@ -7,10 +7,19 @@ export interface UserRegisterDependencies {
   users: UserRepository;
 }
 
-export function UserRegister(
-  _dependencies: UserRegisterDependencies,
-  _payload: UserRegisterRequestModel
-): any {
-  // Retorna algo que haga fallar el test
-  return null;
+export async function UserRegister(
+  { users }: UserRegisterDependencies,
+  { email, password, name, createdAt, updatedAt }: UserRegisterRequestModel
+): Promise<User> {
+  const user: User = {
+    id: crypto.randomUUID(),
+    email,
+    password,
+    name,
+    role: "user",
+    createdAt: createdAt || new Date(),
+    updatedAt: updatedAt || new Date(),
+  };
+
+  return await users.create(user);
 }

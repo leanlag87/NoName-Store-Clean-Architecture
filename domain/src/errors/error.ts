@@ -1,59 +1,65 @@
 interface AppError {
-    type: string;
-    message: string;
-    httpStatus?: number;
+  type: string;
+  message: string;
+  httpStatus?: number;
 }
 
 export interface InvalidDataError extends AppError {
-    type: 'InvalidData';
-    message: string;
-    httpStatus: 400;
+  type: "InvalidData";
+  message: string;
+  httpStatus: 400;
 }
 
 export interface NotFoundError extends AppError {
-    type : "Not Found";
-     message: string;
-    httpStatus: 404;
-};
-
-export interface BadRequestError extends AppError {
-      type : "Bad Request";
-     message: string;
-    httpStatus: 400;
+  type: "Not Found";
+  message: string;
+  httpStatus: 404;
 }
 
+export interface BadRequestError extends AppError {
+  type: "Bad Request";
+  message: string;
+  httpStatus: 400;
+}
+
+export interface CredentialsError extends AppError {
+  type: "CredentialsError";
+  message: string;
+  httpStatus: 401;
+}
+
+export const createCredentialsError = (): CredentialsError => ({
+  type: "CredentialsError",
+  message: "Invalid credentials",
+  httpStatus: 401,
+});
+
 export const createInvalidDataError = (_message: string): InvalidDataError => ({
-    type: 'InvalidData',
-    message: _message,
-    httpStatus: 400
+  type: "InvalidData",
+  message: _message,
+  httpStatus: 400,
 });
 
 export const createNotFoundError = (_message: string): NotFoundError => ({
-    type: 'Not Found',
-    message: _message,
-    httpStatus: 404
+  type: "Not Found",
+  message: _message,
+  httpStatus: 404,
 });
 
 export const createAlreadyRegisteredError = (): AppError => ({
-    type: 'AlreadyRegistered',
-    message: "409 Conflict",
-    httpStatus: 409
-});
-
-export const createCredentialsError = (): AppError => ({
-    type: 'CredentialsError',
-    message: "400 Bad Request",
-    httpStatus: 400
+  type: "AlreadyRegistered",
+  message: "409 Conflict",
+  httpStatus: 409,
 });
 
 export const createMissingDataError = (_message: string): BadRequestError => ({
-    type: 'Bad Request',
-    message: _message,
-    httpStatus: 400
+  type: "Bad Request",
+  message: _message,
+  httpStatus: 400,
 });
 
 export const createUnauthorizedError = (): AppError => ({
-    type: 'Unauthorized',
-    message: "401 Unauthorized",
-    httpStatus: 401
+  type: "Unauthorized",
+  message: "401 Unauthorized",
+  httpStatus: 401,
 });

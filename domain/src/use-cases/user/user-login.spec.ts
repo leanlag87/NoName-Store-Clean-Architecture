@@ -1,10 +1,15 @@
 import { describe, test, expect, beforeEach } from "vitest";
-import { mockUserRepository, MockedUserRepository } from "../../mocks/user-repository-mock";
-import { UserLogin, UserLoginDependencies, UserLoginRequestModel } from "./user-login";
+import {
+  mockUserRepository,
+  MockedUserRepository,
+} from "../../mocks/user-repository-mock";
+import {
+  UserLogin,
+  UserLoginDependencies,
+  UserLoginRequestModel,
+} from "./user-login";
 import { createCredentialsError } from "../../errors/error";
 import { createCryptoServiceMock } from "../../mocks/crypto-service-mock";
-
-
 
 describe("User Login Use Case", () => {
   let _mockedUserRepository: MockedUserRepository;
@@ -19,7 +24,7 @@ describe("User Login Use Case", () => {
     _mockedUserRepository.create({
       id: "user-id",
       email: "test@email.com",
-      password: "[HASHED]12345678", // Simula hash
+      password: "[HASHED]12345678",
       name: "Test User",
       role: "user",
     });
@@ -46,7 +51,7 @@ describe("User Login Use Case", () => {
   test("should fail if password is incorrect", async () => {
     const payload: UserLoginRequestModel = {
       email: "test@email.com",
-      password: "wrongpassword",
+      password: "wrongpasswordx234QW",
     };
     const result = await UserLogin(_dependencies, payload);
     expect(result).toEqual(createCredentialsError());

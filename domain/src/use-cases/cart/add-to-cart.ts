@@ -7,6 +7,7 @@ import {
   InvalidDataError,
   NotFoundError,
 } from "../../errors/error";
+import { UserRepository } from "../../repositories/user-repository";
 
 export interface AddToCartRequestModel {
   userId: string;
@@ -17,12 +18,18 @@ export interface AddToCartRequestModel {
 export interface AddToCartDependencies {
   cartRepository: CartRepository;
   productRepository: ProductRepository;
+  userRepository: UserRepository;
 }
 
 export async function addToCart(
-  { cartRepository, productRepository }: AddToCartDependencies,
+  { cartRepository, productRepository, userRepository }: AddToCartDependencies,
   { userId, productId, quantity }: AddToCartRequestModel
 ): Promise<InvalidDataError | NotFoundError | CartItem> {
+  const user = await userRepository.findById(userId);
+  if (!user) {
+    return createNotFoundError("User not found");
+  }
+
   if (quantity <= 0) {
     return createInvalidDataError("Quantity must be greater than zero");
   }

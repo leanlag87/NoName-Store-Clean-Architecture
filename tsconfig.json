@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig to read more about this file */
-
     /* Projects */
     "incremental": true, //Para builds más rápidos
     "composite": true, //NECESARIO para monorepo
@@ -23,13 +21,19 @@
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
 
     /* Type Checking */
-    "strict": true /* Enable all strict type-checking options. */,
-    "noUnusedLocals": true /* Enable error reporting when local variables aren't read. */,
-    "noUnusedParameters": true /* Raise an error when a function parameter isn't read. */,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
 
     /* Completeness */
+    "skipLibCheck": true,
 
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    /* Base config for paths */
+    "baseUrl": ".",
+    "paths": {
+      "@domain/*": ["domain/src/*"],
+      "@backend/*": ["apps/backend/src/*"]
+    }
   },
   "references": [{ "path": "./domain" }, { "path": "./apps/backend" }]
 }

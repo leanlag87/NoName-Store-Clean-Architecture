@@ -7,7 +7,12 @@
     "rootDir": "src", //Directorio raíz de los archivos fuente está en apps/backend/src/
     "noEmit": false, //SÍ genera archivos (contrario a la raíz)
     "module": "commonjs", //Usar CommonJS para Node.js
-    "target": "es2020" //ECMAScript 2020
+    "target": "es2020", //ECMAScript 2020
+
+    "baseUrl": ".", // Se refiere a apps/backend/
+    "paths": {
+      "@domain/*": ["../../domain/src/*"]
+    }
   },
   "include": ["src/**/*"], //Solo compila archivos de la carpeta src/
   "exclude": ["node_modules", "dist", "**/*.test.ts"], //Excluye las carpetas node_modules, dist y los archivos de test

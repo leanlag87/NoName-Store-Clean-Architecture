@@ -1,5 +1,5 @@
-import { Product } from "../../../../domain/src/entities/Product";
-import { ProductRepository } from "../../../../domain/src/repositories/product-repository";
+import { Product } from "@domain/entities/Product";
+import { ProductRepository } from "@domain/repositories/product-repository";
 
 export function productService(): ProductRepository {
   return {

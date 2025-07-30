@@ -32,8 +32,13 @@
     "baseUrl": ".",
     "paths": {
       "@domain/*": ["domain/src/*"],
-      "@backend/*": ["apps/backend/src/*"]
+      "@backend/*": ["apps/backend/src/*"],
+      "@frontend/*": ["apps/frontend/src/*"] // 👈 nuevo alias para React
     }
   },
-  "references": [{ "path": "./domain" }, { "path": "./apps/backend" }]
+  "references": [
+    { "path": "./domain" },
+    { "path": "./apps/backend" },
+    { "path": "./apps/frontend" }
+  ]
 }

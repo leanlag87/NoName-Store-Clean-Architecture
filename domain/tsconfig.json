@@ -4,10 +4,10 @@
     "composite": true, //Permite que otros paquetes lo referencien
     "declaration": true, //Genera los archivos .d.ts para exportar los tipos
     "outDir": "dist", //Salida de los archivos compilados van a domain/dist/
-    "rootDir": "src", //Directorio raíz de los archivos fuente está en domain/src/
+    "rootDir": ".", //Directorio raíz de los archivos fuente está en domain/src/
     "noEmit": false, //SÍ genera archivos (contrario a la raíz)
     "module": "ESNext" //Usa el sistema de módulos ESNext
   },
-  "include": ["src/**/*"], //Solo compila archivos de la carpeta src/
+  "include": ["src/**/*", "utils/**/*"], //Solo compila archivos de la carpeta src/
   "exclude": ["node_modules", "dist", "**/*.test.ts"] //Excluye las carpetas node_modules, dist y los archivos de test
 }

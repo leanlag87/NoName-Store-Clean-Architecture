@@ -1,4 +1,4 @@
-import { ms } from "../../utils/ms";
+import { ms } from "../utils/ms";
 import { CryptoRepository } from "../repositories/crypto-repository";
 import { User } from "../entities/User";
 

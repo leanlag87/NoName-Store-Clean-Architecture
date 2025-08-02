@@ -33,7 +33,7 @@
     "paths": {
       "@domain/*": ["domain/src/*"],
       "@backend/*": ["apps/backend/src/*"],
-      "@frontend/*": ["apps/frontend/src/*"] // 👈 nuevo alias para React
+      "@frontend/*": ["apps/frontend/src/*"] 
     }
   },
   "references": [

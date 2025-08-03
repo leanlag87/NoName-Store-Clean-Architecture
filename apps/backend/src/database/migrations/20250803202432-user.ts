@@ -43,7 +43,7 @@ export = {
       }
     });
   },
-  async down(queryInterface: QueryInterface, Sequelize: any) {
+  async down(queryInterface: QueryInterface) {
     await queryInterface.dropTable('Users');
   }
 };

@@ -1,14 +1,13 @@
-import { Model, DataTypes } from 'sequelize';
-import connection from '../connection';
-import Cart from './cart';
+import { Model, DataTypes } from "sequelize";
+import connection from "../connection";
 
 class User extends Model {
   public id!: number;
   public name!: string;
   public email!: string;
   public password!: string;
-  public role?: 'admin' | 'user';
-  
+  public role?: "admin" | "user";
+
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt?: Date;
@@ -37,8 +36,8 @@ User.init(
     },
     role: {
       allowNull: true,
-      type: DataTypes.ENUM('admin', 'user'),
-      defaultValue: 'user',
+      type: DataTypes.ENUM("admin", "user"),
+      defaultValue: "user",
     },
     createdAt: {
       allowNull: false,
@@ -57,15 +56,9 @@ User.init(
   },
   {
     sequelize: connection,
-    modelName: 'User',
-    paranoid: true, 
+    modelName: "User",
+    paranoid: true,
   }
 );
-
-// Asociaciones
-User.hasMany(Cart, {
-  as: 'carts',
-  foreignKey: 'userId',
-});
 
 export default User;

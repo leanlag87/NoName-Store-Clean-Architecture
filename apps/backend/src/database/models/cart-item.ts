@@ -1,7 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection';
-import Cart from './cart';
-import Product from './product';
+
 
 class CartItem extends Model {
   public id!: number;
@@ -67,16 +66,5 @@ CartItem.init(
     paranoid: true,
   }
 );
-
-// Asociaciones
-CartItem.belongsTo(Cart, {
-  as: 'cart',
-  foreignKey: 'cartId',
-});
-
-CartItem.belongsTo(Product, {
-  as: 'product',
-  foreignKey: 'productId',
-});
 
 export default CartItem;

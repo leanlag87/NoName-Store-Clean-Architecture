@@ -1,6 +1,5 @@
-import { Model, DataTypes } from 'sequelize';
-import connection from '../connection';
-import CartItem from './cart-item';
+import { Model, DataTypes } from "sequelize";
+import connection from "../connection";
 
 class Product extends Model {
   public id!: number;
@@ -9,7 +8,7 @@ class Product extends Model {
   public price!: number;
   public categoryId?: number;
   public brandId?: number;
-  
+
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt?: Date;
@@ -60,15 +59,9 @@ Product.init(
   },
   {
     sequelize: connection,
-    modelName: 'Product',
+    modelName: "Product",
     paranoid: true,
   }
 );
-
-// Asociaciones
-Product.hasMany(CartItem, {
-  as: 'cartItems',
-  foreignKey: 'productId',
-});
 
 export default Product;

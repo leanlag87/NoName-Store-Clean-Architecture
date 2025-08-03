@@ -1,13 +1,11 @@
-import { Model, DataTypes } from 'sequelize';
-import connection from '../connection';
-import User from './user';
-import CartItem from './cart-item';
+import { Model, DataTypes } from "sequelize";
+import connection from "../connection";
 
 class Cart extends Model {
   public id!: number;
   public userId!: number;
   public totalAmount!: number;
-  
+
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt?: Date;
@@ -47,20 +45,9 @@ Cart.init(
   },
   {
     sequelize: connection,
-    modelName: 'Cart',
+    modelName: "Cart",
     paranoid: true,
   }
 );
-
-
-Cart.belongsTo(User, {
-  as: 'user',
-  foreignKey: 'userId',
-});
-
-Cart.hasMany(CartItem, {
-  as: 'items',
-  foreignKey: 'cartId',
-});
 
 export default Cart;

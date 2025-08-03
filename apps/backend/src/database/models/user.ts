@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection';
+import Cart from './cart';
 
 class User extends Model {
   public id!: number;
@@ -60,5 +61,11 @@ User.init(
     paranoid: true, 
   }
 );
+
+// Asociaciones
+User.hasMany(Cart, {
+  as: 'carts',
+  foreignKey: 'userId',
+});
 
 export default User;

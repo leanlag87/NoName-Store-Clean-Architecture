@@ -1,6 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection';
 import User from './user';
+import CartItem from './cart-item';
 
 class Cart extends Model {
   public id!: number;
@@ -55,6 +56,11 @@ Cart.init(
 Cart.belongsTo(User, {
   as: 'user',
   foreignKey: 'userId',
+});
+
+Cart.hasMany(CartItem, {
+  as: 'items',
+  foreignKey: 'cartId',
 });
 
 export default Cart;

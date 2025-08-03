@@ -1,3 +1,4 @@
+
 import { Dialect, Sequelize } from 'sequelize';
 import env from '../env';
 

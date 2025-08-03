@@ -33,12 +33,12 @@
     "paths": {
       "@domain/*": ["domain/src/*"],
       "@backend/*": ["apps/backend/src/*"],
-      "@frontend/*": ["apps/frontend/src/*"] 
+      //"@frontend/*": ["apps/frontend/src/*"] 
     }
   },
   "references": [
     { "path": "./domain" },
     { "path": "./apps/backend" },
-    { "path": "./apps/frontend" }
+    //{ "path": "./apps/frontend" }
   ]
 }

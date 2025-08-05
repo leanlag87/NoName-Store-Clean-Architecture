@@ -10,7 +10,8 @@
   "description": "",
   "scripts": {
     "build": "yarn workspaces foreach run build",
-    "test": "yarn workspaces foreach run test",
+    "test": "vitest",
+    "test:run": "vitest run",
     "clean": "yarn workspaces foreach run clean"
   },
   "keywords": [],

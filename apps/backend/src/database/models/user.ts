@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import connection from "../connection";
+import { UserRole } from "@domain/entities/User";
 
 class User extends Model {
   public id!: number;
@@ -7,7 +8,11 @@ class User extends Model {
   public surname!: string;
   public email!: string;
   public password!: string;
-  public role?: "admin" | "user";
+  public image?: string;
+  public validated!: boolean;
+  public locked!: boolean;
+  public token?: string;
+  public role!: UserRole;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

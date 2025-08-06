@@ -1,3 +1,5 @@
+import { UserRole } from "@domain/entities/User";
+
 export interface UserResponseDto {
   id: string;
   name: string;
@@ -10,5 +12,3 @@ export interface UserResponseDto {
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-export type UserRole = "admin" | "user";

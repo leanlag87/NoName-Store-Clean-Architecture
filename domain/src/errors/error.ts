@@ -28,6 +28,12 @@ export interface CredentialsError extends AppError {
   httpStatus: 401;
 }
 
+export interface UnauthorizedError extends AppError {
+  type: "Unauthorized";
+  message: string;
+  httpStatus: 401;
+}
+
 export const createCredentialsError = (): CredentialsError => ({
   type: "CredentialsError",
   message: "Invalid credentials",
@@ -58,8 +64,10 @@ export const createMissingDataError = (_message: string): BadRequestError => ({
   httpStatus: 400,
 });
 
-export const createUnauthorizedError = (): AppError => ({
+export const createUnauthorizedError = (
+  _message: string
+): UnauthorizedError => ({
   type: "Unauthorized",
-  message: "401 Unauthorized",
+  message: _message,
   httpStatus: 401,
 });

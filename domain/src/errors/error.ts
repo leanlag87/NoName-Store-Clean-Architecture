@@ -22,8 +22,8 @@ export interface BadRequestError extends AppError {
   httpStatus: 400;
 }
 
-export interface CredentialsError extends AppError {
-  type: "CredentialsError";
+export interface AuthenticationError extends AppError {
+  type: "Authentication Error";
   message: string;
   httpStatus: 401;
 }
@@ -34,15 +34,65 @@ export interface UnauthorizedError extends AppError {
   httpStatus: 401;
 }
 
-export interface AlreadyRegisteredError extends AppError {
-  type: "AlreadyRegistered";
+export interface ConflictError extends AppError {
+  type: "Conflict";
   message: string;
   httpStatus: 409;
 }
 
-export const createCredentialsError = (): CredentialsError => ({
-  type: "CredentialsError",
-  message: "Invalid credentials",
+export interface ForbiddenError extends AppError {
+  type: "Forbidden";
+  message: string;
+  httpStatus: 403;
+}
+
+export interface InternalServerError extends AppError {
+  type: "Internal Server Error";
+  message: string;
+  httpStatus: 500;
+}
+
+export interface InternalServerError extends AppError {
+  type: "Internal Server Error";
+  message: string;
+  httpStatus: 500;
+}
+
+export interface EmailSendingError extends AppError {
+  type: "Email Sending Error";
+  message: string;
+  httpStatus: 500;
+}
+
+export const createEmailSendingError = (
+  _message: string = "Email sending failed"
+): EmailSendingError => ({
+  type: "Email Sending Error",
+  message: _message,
+  httpStatus: 500,
+});
+
+export const createConflictError = (
+  _message: string = "Resource already exists"
+): ConflictError => ({
+  type: "Conflict",
+  message: _message,
+  httpStatus: 409,
+});
+
+export const createForbiddenError = (
+  _message: string = "Access forbidden"
+): ForbiddenError => ({
+  type: "Forbidden",
+  message: _message,
+  httpStatus: 403,
+});
+
+export const createAuthenticationError = (
+  _message: string = "Invalid credentials"
+): AuthenticationError => ({
+  type: "Authentication Error",
+  message: _message,
   httpStatus: 401,
 });
 
@@ -56,14 +106,6 @@ export const createNotFoundError = (_message: string): NotFoundError => ({
   type: "Not Found",
   message: _message,
   httpStatus: 404,
-});
-
-export const createAlreadyRegisteredError = (
-  _message: string
-): AlreadyRegisteredError => ({
-  type: "AlreadyRegistered",
-  message: _message,
-  httpStatus: 409,
 });
 
 export const createMissingDataError = (_message: string): BadRequestError => ({

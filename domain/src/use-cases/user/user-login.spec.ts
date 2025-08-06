@@ -8,7 +8,7 @@ import {
   UserLoginDependencies,
   UserLoginRequestModel,
 } from "./user-login";
-import { createCredentialsError } from "../../errors/error";
+import { createAuthenticationError } from "../../errors/error";
 import { createCryptoServiceMock } from "../../mocks/crypto-service-mock";
 
 describe("User Login Use Case", () => {
@@ -45,7 +45,7 @@ describe("User Login Use Case", () => {
       password: "12345678",
     };
     const result = await UserLogin(_dependencies, payload);
-    expect(result).toEqual(createCredentialsError());
+    expect(result).toEqual(createAuthenticationError());
   });
 
   test("should fail if password is incorrect", async () => {
@@ -54,6 +54,6 @@ describe("User Login Use Case", () => {
       password: "wrongpasswordx234QW",
     };
     const result = await UserLogin(_dependencies, payload);
-    expect(result).toEqual(createCredentialsError());
+    expect(result).toEqual(createAuthenticationError());
   });
 });

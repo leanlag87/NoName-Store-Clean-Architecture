@@ -1,7 +1,10 @@
 import { User } from "../../entities/User";
 import { UserRepository } from "../../repositories/user-repository";
 import { CryptoRepository } from "../../repositories/crypto-repository";
-import { createCredentialsError, CredentialsError } from "../../errors/error";
+import {
+  AuthenticationError,
+  createAuthenticationError,
+} from "../../errors/error";
 
 export interface UserLoginRequestModel {
   email: string;
@@ -16,10 +19,10 @@ export interface UserLoginDependencies {
 export async function UserLogin(
   { users, crypto }: UserLoginDependencies,
   { email, password }: UserLoginRequestModel
-): Promise<User | CredentialsError> {
+): Promise<User | AuthenticationError> {
   const user = await users.findByEmail(email);
-  if (!user) return createCredentialsError();
+  if (!user) return createAuthenticationError();
   const isValid = await crypto.comparePassword(password, user.password);
-  if (!isValid) return createCredentialsError();
+  if (!isValid) return createAuthenticationError();
   return user;
 }

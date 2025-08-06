@@ -4,6 +4,7 @@ import connection from "../connection";
 class User extends Model {
   public id!: number;
   public name!: string;
+  public surname!: string;
   public email!: string;
   public password!: string;
   public role?: "admin" | "user";
@@ -22,6 +23,10 @@ User.init(
       type: DataTypes.INTEGER,
     },
     name: {
+      allowNull: false,
+      type: DataTypes.STRING(50),
+    },
+    surname: {
       allowNull: false,
       type: DataTypes.STRING(50),
     },

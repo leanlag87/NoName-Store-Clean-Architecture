@@ -13,11 +13,11 @@ export interface UserRegisterDependencies {
 
 export async function UserRegister(
   { users }: UserRegisterDependencies,
-  { email, password, name }: UserRegisterRequestModel
+  { email, password, name, surname }: UserRegisterRequestModel
 ): Promise<InvalidDataError | User> {
-  const hasErrors = validateData(email, password, name);
+  const hasErrors = validateData(email, password, name, surname);
   if (hasErrors) return hasErrors;
-  
+
   const existingUser = await users.findByEmail(email);
   if (existingUser) return createInvalidDataError("Email already in use");
 
@@ -26,6 +26,7 @@ export async function UserRegister(
     email,
     password,
     name,
+    surname,
     role: "user",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -37,7 +38,8 @@ export async function UserRegister(
 function validateData(
   email: string,
   password: string,
-  name: string
+  name: string,
+  surname: string
 ): InvalidDataError | void {
   if (email.trim() === "") {
     return createInvalidDataError("Email must be not empty");
@@ -47,5 +49,8 @@ function validateData(
   }
   if (name.trim() === "") {
     return createInvalidDataError("Name must be not empty");
+  }
+  if (surname.trim() === "") {
+    return createInvalidDataError("Surname must be not empty");
   }
 }

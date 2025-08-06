@@ -26,6 +26,7 @@ describe("User Login Use Case", () => {
       email: "test@email.com",
       password: "[HASHED]12345678",
       name: "Test User",
+      surname: "Surname Test",
       role: "user",
     });
   });

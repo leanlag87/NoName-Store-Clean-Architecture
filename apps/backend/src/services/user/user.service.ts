@@ -1,4 +1,4 @@
-import { User, UserRole } from "@domain/entities/User";
+import { User } from "@domain/entities/User";
 import { UserRepository } from "@domain/repositories/user-repository";
 import { createNotFoundError } from "@domain/errors/error";
 import { UserResponseDto } from "../../dtos/user-response.dto";

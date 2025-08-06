@@ -49,8 +49,13 @@ export function userService(): UserRepository {
     async create(user: User): Promise<User> {
       const newUser = await UserModel.create({
         name: user.name,
+        surname: user.surname,
         email: user.email,
         password: user.password,
+        image: user.image,
+        validated: user.validated,
+        locked: user.locked,
+        token: user.token,
         role: user.role || "user",
       });
       return _mapToUserEntity(newUser);
@@ -64,9 +69,14 @@ export function userService(): UserRepository {
 
       userToUpdate.update({
         name: user.name,
+        surname: user.surname,
         email: user.email,
         password: user.password,
+        image: user.image,
         role: user.role,
+        validated: user.validated,
+        locked: user.locked,
+        token: user.token,
       });
 
       const updatedUser = await userToUpdate.save();
@@ -95,7 +105,11 @@ export function getUserForResponse(user: User): UserResponseDto {
   return {
     id: user.id!,
     name: user.name,
+    surname: user.surname,
     email: user.email,
+    image: user.image,
+    validated: user.validated,
+    locked: user.locked,
     role: user.role,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,

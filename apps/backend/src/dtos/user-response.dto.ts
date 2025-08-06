@@ -6,7 +6,7 @@ export interface UserResponseDto {
   image?: string;
   validated: boolean;
   locked: boolean;
-  role?: UserRole;
+  role: UserRole;
   createdAt?: Date;
   updatedAt?: Date;
 }

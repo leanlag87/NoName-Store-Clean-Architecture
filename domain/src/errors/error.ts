@@ -52,12 +52,6 @@ export interface InternalServerError extends AppError {
   httpStatus: 500;
 }
 
-export interface InternalServerError extends AppError {
-  type: "Internal Server Error";
-  message: string;
-  httpStatus: 500;
-}
-
 export interface EmailSendingError extends AppError {
   type: "Email Sending Error";
   message: string;
@@ -120,4 +114,12 @@ export const createUnauthorizedError = (
   type: "Unauthorized",
   message: _message,
   httpStatus: 401,
+});
+
+export const createInternalServerError = (
+  _message: string = "An unexpected internal server error occurred"
+): InternalServerError => ({
+  type: "Internal Server Error",
+  message: _message,
+  httpStatus: 500,
 });

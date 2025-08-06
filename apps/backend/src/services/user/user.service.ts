@@ -36,6 +36,11 @@ export function userService(): UserRepository {
       return _mapToUserEntity(user);
     },
 
+    async findAll(): Promise<User[]> {
+      const users = await UserModel.findAll();
+      return users.map(_mapToUserEntity);
+    },
+
     async create(user: User): Promise<User> {
       const newUser = await UserModel.create({
         name: user.name,

@@ -34,6 +34,12 @@ export interface UnauthorizedError extends AppError {
   httpStatus: 401;
 }
 
+export interface AlreadyRegisteredError extends AppError {
+  type: "AlreadyRegistered";
+  message: string;
+  httpStatus: 409;
+}
+
 export const createCredentialsError = (): CredentialsError => ({
   type: "CredentialsError",
   message: "Invalid credentials",
@@ -52,9 +58,11 @@ export const createNotFoundError = (_message: string): NotFoundError => ({
   httpStatus: 404,
 });
 
-export const createAlreadyRegisteredError = (): AppError => ({
+export const createAlreadyRegisteredError = (
+  _message: string
+): AlreadyRegisteredError => ({
   type: "AlreadyRegistered",
-  message: "409 Conflict",
+  message: _message,
   httpStatus: 409,
 });
 

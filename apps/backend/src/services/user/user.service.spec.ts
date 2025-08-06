@@ -18,8 +18,13 @@ describe("userService", () => {
       const mockUser = {
         id: 1,
         name: "Test User",
+        surname: "Test Surname",
         email: "test@test.com",
         password: "password123",
+        image: null,
+        validated: false,
+        locked: false,
+        token: null,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -32,8 +37,13 @@ describe("userService", () => {
       expect(result).toEqual({
         id: "1",
         name: "Test User",
+        surname: "Test Surname",
         email: "test@test.com",
         password: "password123",
+        image: null,
+        validated: false,
+        locked: false,
+        token: null,
         role: "user",
         createdAt: mockUser.createdAt,
         updatedAt: mockUser.updatedAt,
@@ -58,8 +68,13 @@ describe("userService", () => {
       const mockUser = {
         id: 1,
         name: "Test User",
+        surname: "Test Surname",
         email: "test@test.com",
         password: "password123",
+        image: null,
+        validated: false,
+        locked: false,
+        token: null,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -71,6 +86,7 @@ describe("userService", () => {
 
       expect((result as User).id).toBe("1");
       expect((result as User).name).toBe("Test User");
+      expect((result as User).surname).toBe("Test Surname");
     });
 
     it("should throw NotFoundError when user does not exist", async () => {
@@ -87,8 +103,34 @@ describe("userService", () => {
   describe("findAll", () => {
     it("should return all users", async () => {
       const mockUsers = [
-        { id: 1, name: "User 1", email: "user1@test.com" },
-        { id: 2, name: "User 2", email: "user2@test.com" },
+        {
+          id: 1,
+          name: "User 1",
+          surname: "Surname 1",
+          email: "user1@test.com",
+          password: "pass123",
+          image: null,
+          validated: false,
+          locked: false,
+          token: null,
+          role: "user",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: 2,
+          name: "User 2",
+          surname: "Surname 2",
+          email: "user2@test.com",
+          password: "pass456",
+          image: null,
+          validated: true,
+          locked: false,
+          token: null,
+          role: "admin",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ];
 
       vi.mocked(UserModel.findAll).mockResolvedValue(mockUsers as any);
@@ -97,7 +139,9 @@ describe("userService", () => {
 
       expect(result).toHaveLength(2);
       expect(result[0].id).toBe("1");
+      expect(result[0].surname).toBe("Surname 1");
       expect(result[1].id).toBe("2");
+      expect(result[1].surname).toBe("Surname 2");
       expect(UserModel.findAll).toHaveBeenCalledTimes(1);
     });
 
@@ -115,8 +159,13 @@ describe("userService", () => {
       const mockCreatedUser = {
         id: 1,
         name: "New User",
+        surname: "New Surname",
         email: "new@test.com",
         password: "password123",
+        image: null,
+        validated: false,
+        locked: false,
+        token: null,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -125,10 +174,15 @@ describe("userService", () => {
       vi.mocked(UserModel.create).mockResolvedValue(mockCreatedUser as any);
 
       const newUser: User = {
-        id: undefined,
+        id: "123",
         name: "New User",
+        surname: "New Surname",
         email: "new@test.com",
         password: "password123",
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -138,10 +192,16 @@ describe("userService", () => {
 
       expect(result.id).toBe("1");
       expect(result.name).toBe("New User");
+      expect(result.surname).toBe("New Surname");
       expect(UserModel.create).toHaveBeenCalledWith({
         name: "New User",
+        surname: "New Surname",
         email: "new@test.com",
         password: "password123",
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
         role: "user",
       });
     });
@@ -150,8 +210,13 @@ describe("userService", () => {
       const mockCreatedUser = {
         id: 1,
         name: "New User",
+        surname: "New Surname",
         email: "new@test.com",
         password: "password123",
+        image: null,
+        validated: false,
+        locked: false,
+        token: null,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -160,11 +225,16 @@ describe("userService", () => {
       vi.mocked(UserModel.create).mockResolvedValue(mockCreatedUser as any);
 
       const newUser: User = {
-        id: undefined,
+        id: "123",
         name: "New User",
+        surname: "New Surname",
         email: "new@test.com",
         password: "password123",
-        role: undefined,
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
+        role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -173,8 +243,13 @@ describe("userService", () => {
 
       expect(UserModel.create).toHaveBeenCalledWith({
         name: "New User",
+        surname: "New Surname",
         email: "new@test.com",
         password: "password123",
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
         role: "user",
       });
     });
@@ -185,8 +260,13 @@ describe("userService", () => {
       const updateSpy = vi.spyOn(service, "update").mockResolvedValue({
         id: "1",
         name: "Test User",
+        surname: "Test Surname",
         email: "test@test.com",
         password: "password123",
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -195,8 +275,13 @@ describe("userService", () => {
       const user: User = {
         id: "1",
         name: "Test User",
+        surname: "Test Surname",
         email: "test@test.com",
         password: "password123",
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -213,18 +298,28 @@ describe("userService", () => {
       const createSpy = vi.spyOn(service, "create").mockResolvedValue({
         id: "1",
         name: "Test User",
+        surname: "Test Surname",
         email: "test@test.com",
         password: "password123",
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
       } as User);
 
       const user: User = {
-        id: undefined,
+        id: "",
         name: "Test User",
+        surname: "Test Surname",
         email: "test@test.com",
         password: "password123",
+        image: undefined,
+        validated: false,
+        locked: false,
+        token: undefined,
         role: "user",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -244,8 +339,13 @@ describe("getUserForResponse", () => {
     const user: User = {
       id: "1",
       name: "Test User",
+      surname: "Test Surname",
       email: "test@test.com",
       password: "secret123",
+      image: "avatar.jpg",
+      validated: true,
+      locked: false,
+      token: "some-token",
       role: "user",
       createdAt: new Date("2024-01-01"),
       updatedAt: new Date("2024-01-02"),
@@ -256,13 +356,18 @@ describe("getUserForResponse", () => {
     expect(result).toEqual({
       id: "1",
       name: "Test User",
+      surname: "Test Surname",
       email: "test@test.com",
+      image: "avatar.jpg",
+      validated: true,
+      locked: false,
       role: "user",
-      createdAt: new Date("2024-01-01"),
-      updatedAt: new Date("2024-01-02"),
+      createdAt: new Date("2025-01-01"),
+      updatedAt: new Date("2025-01-01"),
     });
 
-    //Verificar que no incluye el password
+    //Verificar que password y token no esten en el resultado
     expect(result).not.toHaveProperty("password");
+    expect(result).not.toHaveProperty("token");
   });
 });

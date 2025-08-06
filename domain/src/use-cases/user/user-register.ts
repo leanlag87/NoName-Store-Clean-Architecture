@@ -4,7 +4,7 @@ import { InvalidDataError, createInvalidDataError } from "../../errors/error";
 
 export type UserRegisterRequestModel = Omit<
   User,
-  "id" | "role" | "createdAt" | "updatedAt"
+  "id" | "role" | "createdAt" | "updatedAt" | "validated" | "locked" | "token"
 >;
 
 export interface UserRegisterDependencies {
@@ -27,6 +27,10 @@ export async function UserRegister(
     password,
     name,
     surname,
+    image: undefined,
+    validated: false,
+    locked: false,
+    token: undefined,
     role: "user",
     createdAt: new Date(),
     updatedAt: new Date(),

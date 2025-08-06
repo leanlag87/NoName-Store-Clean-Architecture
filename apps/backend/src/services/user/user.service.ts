@@ -9,8 +9,13 @@ export function userService(): UserRepository {
     return {
       id: user.id.toString(),
       name: user.name,
+      surname: user.surname,
       email: user.email,
       password: user.password,
+      image: user.image,
+      validated: user.validated,
+      locked: user.locked,
+      token: user.token,
       role: user.role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,

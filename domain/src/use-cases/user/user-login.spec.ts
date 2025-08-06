@@ -27,6 +27,8 @@ describe("User Login Use Case", () => {
       password: "[HASHED]12345678",
       name: "Test User",
       surname: "Surname Test",
+      validated: true,
+      locked: false,
       role: "user",
     });
   });

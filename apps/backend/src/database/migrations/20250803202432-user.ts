@@ -28,6 +28,22 @@ export = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      validated: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      locked: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      token: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       role: {
         type: Sequelize.ENUM("admin", "user"),
         allowNull: true,

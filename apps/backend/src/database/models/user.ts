@@ -39,6 +39,24 @@ User.init(
       allowNull: false,
       type: DataTypes.STRING,
     },
+    image: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    validated: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    locked: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    token: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
     role: {
       allowNull: true,
       type: DataTypes.ENUM("admin", "user"),

@@ -27,6 +27,10 @@ describe("User register use case", () => {
       email: "existing@user.com",
       name: "Existing User",
       surname: "Surname",
+      validated: true,
+      locked: false,
+      image: undefined,
+      createdAt: new Date(),
       role: "user" as UserRole,
     });
   });
@@ -37,6 +41,9 @@ describe("User register use case", () => {
       password: "12345678",
       name: "Test User",
       surname: "Surname",
+      image: undefined,
+      validated: false,
+      locked: false,
     };
     const result = await UserRegister(_dependencies, payload);
     expect(result).toEqual(createInvalidDataError("Email already in use"));
@@ -48,6 +55,9 @@ describe("User register use case", () => {
       password: "12345678",
       name: "Test User",
       surname: "Surname",
+      image: undefined,
+      validated: false,
+      locked: false,
     };
     const result = await UserRegister(_dependencies, payload);
     expect(result).toEqual(createInvalidDataError("Email must be not empty"));
@@ -59,6 +69,9 @@ describe("User register use case", () => {
       password: "",
       name: "Test User",
       surname: "Surname",
+      image: undefined,
+      validated: false,
+      locked: false,
     };
     const result = await UserRegister(_dependencies, payload);
     expect(result).toEqual(
@@ -72,6 +85,9 @@ describe("User register use case", () => {
       password: "12345678",
       name: "",
       surname: "",
+      image: undefined,
+      validated: false,
+      locked: false,
     };
     const result = await UserRegister(_dependencies, payload);
     expect(result).toEqual(createInvalidDataError("Name must be not empty"));
@@ -83,6 +99,9 @@ describe("User register use case", () => {
       password: "12345678",
       name: "Test User",
       surname: "Surname",
+      image: undefined,
+      validated: false,
+      locked: false,
     };
 
     const result = await UserRegister(_dependencies, payload);

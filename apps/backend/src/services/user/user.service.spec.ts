@@ -84,6 +84,32 @@ describe("userService", () => {
     });
   });
 
+  describe("findAll", () => {
+    it("should return all users", async () => {
+      const mockUsers = [
+        { id: 1, name: "User 1", email: "user1@test.com" },
+        { id: 2, name: "User 2", email: "user2@test.com" },
+      ];
+
+      vi.mocked(UserModel.findAll).mockResolvedValue(mockUsers as any);
+
+      const result = await service.findAll();
+
+      expect(result).toHaveLength(2);
+      expect(result[0].id).toBe("1");
+      expect(result[1].id).toBe("2");
+      expect(UserModel.findAll).toHaveBeenCalledTimes(1);
+    });
+
+    it("should return empty array when no users exist", async () => {
+      vi.mocked(UserModel.findAll).mockResolvedValue([]);
+
+      const result = await service.findAll();
+
+      expect(result).toEqual([]);
+    });
+  });
+
   describe("create", () => {
     it("should create user successfully", async () => {
       const mockCreatedUser = {

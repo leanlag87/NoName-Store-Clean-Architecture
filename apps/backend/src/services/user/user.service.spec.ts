@@ -362,8 +362,8 @@ describe("getUserForResponse", () => {
       validated: true,
       locked: false,
       role: "user",
-      createdAt: new Date("2025-01-01"),
-      updatedAt: new Date("2025-01-01"),
+      createdAt: new Date("2024-01-01"),
+      updatedAt: new Date("2024-01-02"),
     });
 
     //Verificar que password y token no esten en el resultado

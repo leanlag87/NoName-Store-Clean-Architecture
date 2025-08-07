@@ -1,6 +1,7 @@
 import { User } from "../../entities/User";
 import { UserRepository } from "../../repositories/user-repository";
 import { InvalidDataError, createInvalidDataError } from "../../errors/error";
+import { CryptoRepository } from "@domain/repositories/crypto-repository";
 
 export type UserRegisterRequestModel = Omit<
   User,
@@ -9,10 +10,11 @@ export type UserRegisterRequestModel = Omit<
 
 export interface UserRegisterDependencies {
   users: UserRepository;
+  cryptoRepository: CryptoRepository;
 }
 
 export async function UserRegister(
-  { users }: UserRegisterDependencies,
+  { users, cryptoRepository }: UserRegisterDependencies,
   { email, password, name, surname }: UserRegisterRequestModel
 ): Promise<InvalidDataError | User> {
   const hasErrors = validateData(email, password, name, surname);
@@ -22,9 +24,9 @@ export async function UserRegister(
   if (existingUser) return createInvalidDataError("Email already in use");
 
   const user: User = {
-    id: crypto.randomUUID(),
+    id: await cryptoRepository.generateNewID(),
     email,
-    password,
+    password: await cryptoRepository.hashPassword(password),
     name,
     surname,
     image: undefined,

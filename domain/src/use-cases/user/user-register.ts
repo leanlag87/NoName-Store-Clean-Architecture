@@ -20,8 +20,24 @@ export async function UserRegister(
   const hasErrors = validateData(email, password, name, surname);
   if (hasErrors) return hasErrors;
 
-  const existingUser = await users.findByEmail(email);
-  if (existingUser) return createInvalidDataError("Email already in use");
+  // const existingUser = await users.findByEmail(email);
+  // if (existingUser) return createInvalidDataError("Email already in use");
+
+  try {
+    await users.findByEmail(email);
+    return createInvalidDataError("Email already in use");
+  } catch (error) {
+    if (
+      !(
+        error &&
+        typeof error === "object" &&
+        "type" in error &&
+        error.type === "Not Found"
+      )
+    ) {
+      throw error;
+    }
+  }
 
   const user: User = {
     id: await cryptoRepository.generateNewID(),

@@ -3,15 +3,53 @@ import {
   UserRegister,
   UserRegisterRequestModel,
 } from "@domain/use-cases/user/user-register";
-import {  createInternalServerError } from "@domain/errors/error";
+import { createInternalServerError } from "@domain/errors/error";
 import { userService, getUserForResponse } from "../services/user/user.service";
 import { cryptoService } from "../services/crypto/crypto.service";
+import { User } from "src/database/models";
 
 export function userController() {
   return {
     registerNewUser: async (req: Request, res: Response) => {
-    
-     
+      try {
+        const { email, password, name, surname }: UserRegisterRequestModel =
+          req.body;
+
+        const user = await UserRegister(
+          {
+            users: userService(),
+            cryptoRepository: cryptoService(),
+          },
+          { email, password, name, surname }
+        );
+
+        // Si hay error de validación, user será InvalidDataError
+        if ("message" in user && "type" in user) {
+          return res.status(400).json({
+            ok: false,
+            message: user.message,
+          });
+        }
+
+        // Usuario creado exitosamente
+        const userResponse = getUserForResponse(user as User);
+
+        return res.status(201).json({
+          ok: true,
+          data: userResponse,
+          message: "Usuario registrado con éxito",
+        });
+      } catch (e) {
+        console.error("Error in registerNewUser:", e);
+        const error = createInternalServerError(
+          "Error interno del servidor al registrar usuario"
+        );
+
+        return res.status(error.httpStatus).json({
+          ok: false,
+          message: error.message,
+        });
+      }
     },
 
     getUserById: async (req: Request, res: Response) => {

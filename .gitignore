@@ -25,7 +25,20 @@ pnpm-debug.log*
 
 # Env files
 .env
-.env.* 
+.env.development
+.env.test
+.env.production
+.env.local
+.env.*.local
+
+# Environments - Excluir archivos específicos
+environments/.env
+environments/.env.development
+environments/.env.test
+environments/.env.production
+
+# Pero permitir ejemplo
+!environments/.env.example
 
 # IDEs y editores
 .vscode/

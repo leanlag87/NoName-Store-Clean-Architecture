@@ -1,10 +1,10 @@
 import { User } from "@domain/entities/User";
 import { CryptoRepository } from "@domain/repositories/crypto-repository";
+import { JWT_SECRET_KEY } from "src/env";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || "default_secret_key";
 const SALT_ROUNDS = 10;
 
 export function cryptoService(): CryptoRepository {

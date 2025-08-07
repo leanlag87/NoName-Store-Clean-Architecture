@@ -9,7 +9,6 @@ import { cryptoService } from "../services/crypto/crypto.service";
 
 export function userController() {
   return {
-    // Register new user
     registerNewUser: async (req: Request, res: Response) => {
       try {
         const { email, password, name, surname }: UserRegisterRequestModel =
@@ -23,7 +22,6 @@ export function userController() {
           { email, password, name, surname }
         );
 
-        // Si hay error de validación, user será InvalidDataError
         if ("message" in user) {
           return res.status(400).json({
             ok: false,
@@ -31,7 +29,6 @@ export function userController() {
           });
         }
 
-        // Usuario creado exitosamente
         const userResponse = getUserForResponse(user);
 
         return res.status(201).json({
@@ -55,7 +52,6 @@ export function userController() {
       }
     },
 
-    // Get user by ID
     getUserById: async (req: Request, res: Response) => {
       try {
         const { id } = req.params;
@@ -85,7 +81,6 @@ export function userController() {
       }
     },
 
-    // Get all users
     getAllUsers: async (req: Request, res: Response) => {
       try {
         const userRepo = userService();
@@ -120,7 +115,6 @@ export function userController() {
       }
     },
 
-    // Update user
     updateUser: async (req: Request, res: Response) => {
       try {
         const { id } = req.params;
@@ -128,10 +122,8 @@ export function userController() {
 
         const userRepo = userService();
 
-        // Verificar que el usuario existe
         const existingUser = await userRepo.findById(id);
 
-        // Actualizar solo campos permitidos
         const updatedUserData = {
           ...existingUser,
           name: updateData.name || existingUser.name,
@@ -140,7 +132,6 @@ export function userController() {
             updateData.image !== undefined
               ? updateData.image
               : existingUser.image,
-          // No permitir cambiar email, password, role desde aquí
         };
 
         const updatedUser = await userRepo.update(updatedUserData);
@@ -167,7 +158,6 @@ export function userController() {
       }
     },
 
-    // Delete user
     deleteUser: async (req: Request, res: Response) => {
       try {
         const { id } = req.params;
@@ -195,7 +185,6 @@ export function userController() {
       }
     },
 
-    // Get current user profile (from JWT token)
     getCurrentUser: async (req: Request, res: Response) => {
       try {
         // Assuming we have middleware that adds user to request

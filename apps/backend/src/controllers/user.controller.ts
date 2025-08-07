@@ -6,7 +6,7 @@ import {
 import { createInternalServerError } from "@domain/errors/error";
 import { userService, getUserForResponse } from "../services/user/user.service";
 import { cryptoService } from "../services/crypto/crypto.service";
-import { User } from "src/database/models";
+import { User } from "@domain/entities/User";
 
 export function userController() {
   return {

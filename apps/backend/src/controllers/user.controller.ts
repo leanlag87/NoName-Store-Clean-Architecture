@@ -23,7 +23,6 @@ export function userController() {
           { email, password, name, surname }
         );
 
-        // Si hay error de validación, user será InvalidDataError
         if ("message" in user && "type" in user) {
           return res.status(400).json({
             ok: false,
@@ -31,7 +30,6 @@ export function userController() {
           });
         }
 
-        // Usuario creado exitosamente
         const userResponse = getUserForResponse(user as User);
 
         return res.status(201).json({

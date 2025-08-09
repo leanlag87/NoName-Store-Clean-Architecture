@@ -85,6 +85,7 @@ User.init(
   {
     sequelize: connection,
     modelName: "User",
+    tableName: "Users",
     paranoid: true,
   }
 );

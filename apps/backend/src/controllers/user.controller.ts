@@ -6,7 +6,7 @@ import {
 import { createInternalServerError } from "@domain/errors/error";
 import { userService, getUserForResponse } from "../services/user/user.service";
 import { cryptoService } from "../services/crypto/crypto.service";
-import { User } from "@domain/entities/User";
+//import { User } from "@domain/entities/User";
 
 export function userController() {
   return {
@@ -30,7 +30,7 @@ export function userController() {
           });
         }
 
-        const userResponse = getUserForResponse(user as User);
+        const userResponse = getUserForResponse(user);
 
         return res.status(201).json({
           ok: true,

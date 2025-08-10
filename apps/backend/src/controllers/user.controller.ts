@@ -23,8 +23,8 @@ export function userController() {
           { email, password, name, surname }
         );
 
-        if ("message" in user && "type" in user) {
-          return res.status(400).json({
+        if ("type" in user && "message" in user && "httpStatus" in user) {
+          return res.status(user.httpStatus).json({
             ok: false,
             message: user.message,
           });

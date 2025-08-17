@@ -27,7 +27,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.json({
     ok: true,
-    message: "NoName Store API RESTful con TypeScript y Express",
+    message: "NoName Store API RESTful",
   });
 });
 

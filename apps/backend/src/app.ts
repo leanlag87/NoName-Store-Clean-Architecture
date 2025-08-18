@@ -24,7 +24,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 // Routes
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.json({
     ok: true,
     message: "NoName Store API RESTful",
@@ -37,7 +37,7 @@ app.use("/api/users", userRoutes);
 //app.use("/api/carts", cartRoutes);
 
 // 404
-app.use((req, res) => {
+app.use((_req, res) => {
   res.status(404).json({
     ok: false,
     message: "Recurso no encontrado",
@@ -45,7 +45,7 @@ app.use((req, res) => {
 });
 
 // Error handling
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({
     ok: false,

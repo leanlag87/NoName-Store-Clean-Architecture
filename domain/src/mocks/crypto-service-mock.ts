@@ -15,10 +15,10 @@ export function createCryptoServiceMock(): CryptoRepository {
         }
       );
     },
-    async hastPassword(password: string): Promise<string> {
-      await ms(100);
-      return "[HASHED]" + password;
+    async hashPassword(password: string): Promise<string> {
+      return `hashed_${password}`;
     },
+
     async comparePassword(
       password: string,
       hashedPassword: string
@@ -30,6 +30,10 @@ export function createCryptoServiceMock(): CryptoRepository {
     },
     async validateToken(token: string): Promise<User> {
       return JSON.parse(token.slice(3));
+    },
+    async generateRandomToken(): Promise<string> {
+      await ms(100);
+      return Math.random().toString(36).substring(2, 15);
     },
   };
 }

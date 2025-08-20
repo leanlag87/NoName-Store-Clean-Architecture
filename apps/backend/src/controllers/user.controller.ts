@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import {
   UserRegister,
   UserRegisterRequestModel,
-} from "@domain/use-cases/user/user-register";
-import { createInternalServerError } from "@domain/errors/error";
+} from "../../../../domain/src/use-cases/user/user-register";
+import { createInternalServerError } from "../../../../domain/src/errors/error";
 import { userService, getUserForResponse } from "../services/user/user.service";
 import { cryptoService } from "../services/crypto/crypto.service";
 //import { User } from "@domain/entities/User";

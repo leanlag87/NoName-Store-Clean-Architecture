@@ -11,6 +11,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { NODE_ENV, PORT } from "./env";
 
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 //import productRoutes from "./routes/product.routes";
 //import cartRoutes from "./routes/cart.routes";
 import sequelizeConnection from "./database/connection";
@@ -33,7 +34,7 @@ app.get("/", (_req, res) => {
 
 // API Routes
 app.use("/api/users", userRoutes);
-//app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 //app.use("/api/products", productRoutes);
 //app.use("/api/carts", cartRoutes);
 

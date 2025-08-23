@@ -1,33 +1,38 @@
 import { Request, Response } from "express";
 import { userService, getUserForResponse } from "../services/user/user.service";
-
-//import { User } from "@domain/entities/User";
+import { createInternalServerError } from "../../../../domain/src/errors/error";
 
 export function userController() {
   return {
     getUserById: async (req: Request, res: Response) => {
       try {
-        // const { id } = req.params;
-        // const userRepo = userService();
-        // const user = await userRepo.findById(id);
-        // const userResponse = getUserForResponse(user);
-        // return res.status(200).json({
-        //   ok: true,
-        //   data: userResponse,
-        //   message: "Perfil de usuario",
-        // });
+        const { id } = req.params;
+        const userRepo = userService();
+        const user = await userRepo.findById(id);
+
+        if (!user) {
+          return res.status(404).json({
+            ok: false,
+            message: "Usuario no encontrado",
+          });
+        }
+
+        const userResponse = getUserForResponse(user);
+
+        return res.status(200).json({
+          ok: true,
+          data: userResponse,
+          message: "Perfil de usuario",
+        });
       } catch (e) {
-        // console.error("Error in getUserById:", e);
-        // const error =
-        //   e instanceof AppError
-        //     ? e
-        //     : createInternalServerError(
-        //         "Ups, hubo un error al obtener el perfil de usuario"
-        //       );
-        // return res.status(error.httpStatus).json({
-        //   ok: false,
-        //   message: error.message,
-        // });
+        console.log("Error in getUserById:", e);
+        const error = createInternalServerError(
+          "Ups, hubo un error al obtener el perfil de usuario"
+        );
+        return res.status(error.httpStatus).json({
+          ok: false,
+          message: error.message,
+        });
       }
     },
     // getAllUsers: async (req: Request, res: Response) => {

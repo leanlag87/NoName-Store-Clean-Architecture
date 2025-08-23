@@ -6,7 +6,10 @@ import {
 import { createInternalServerError } from "../../../../domain/src/errors/error";
 import { userService, getUserForResponse } from "../services/user/user.service";
 import { cryptoService } from "../services/crypto/crypto.service";
-import { UserLogin, UserLoginRequestModel } from "@no-name-store/domain";
+import {
+  UserLogin,
+  UserLoginRequestModel,
+} from "../../../../domain/src/use-cases/user/user-login";
 
 export function authController() {
   return {

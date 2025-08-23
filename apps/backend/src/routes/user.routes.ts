@@ -3,8 +3,8 @@ import { userController } from "../controllers/user.controller";
 
 const router = Router();
 
-const { registerNewUser } = userController();
+const { getUserById } = userController();
 
-router.post("/register", registerNewUser);
+router.get("/:id", getUserById);
 
 export default router;

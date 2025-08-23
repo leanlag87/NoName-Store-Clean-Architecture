@@ -35,36 +35,36 @@ export function userController() {
         });
       }
     },
-    // getAllUsers: async (req: Request, res: Response) => {
-    //   try {
-    //     const userRepo = userService();
-    //     const users = await userRepo.findAll();
-    //     const usersResponse = users.map((user) => {
-    //       const userDto = getUserForResponse(user);
-    //       return {
-    //         ...userDto,
-    //         url: `${req.protocol}://${req.get("host")}/api/users/${user.id}`,
-    //       };
-    //     });
-    //     return res.status(200).json({
-    //       ok: true,
-    //       data: usersResponse,
-    //       message: "Lista de usuarios",
-    //     });
-    //   } catch (e) {
-    //     console.error("Error in getAllUsers:", e);
-    //     const error =
-    //       e instanceof AppError
-    //         ? e
-    //         : createInternalServerError(
-    //             "Ups, hubo un error al obtener la lista de usuarios"
-    //           );
-    //     return res.status(error.httpStatus).json({
-    //       ok: false,
-    //       message: error.message,
-    //     });
-    //   }
-    // },
+    getAllUsers: async (_req: Request, res: Response) => {
+      try {
+        const userRepo = userService();
+        const users = await userRepo.findAll();
+
+        if (!users || users.length === 0) {
+          return res.status(404).json({
+            ok: false,
+            message: "No hay usuarios registrados",
+          });
+        }
+
+        const usersResponse = users.map((user) => getUserForResponse(user));
+
+        return res.status(200).json({
+          ok: true,
+          data: usersResponse,
+          message: "Lista de usuarios",
+        });
+      } catch (e) {
+        console.log("Error in getAllUsers:", e);
+        const error = createInternalServerError(
+          "Error al obtener la lista de usuarios"
+        );
+        return res.status(error.httpStatus).json({
+          ok: false,
+          message: error.message,
+        });
+      }
+    },
     // updateUser: async (req: Request, res: Response) => {
     //   try {
     //     const { id } = req.params;

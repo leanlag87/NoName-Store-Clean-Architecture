@@ -6,6 +6,7 @@ import {
 import { createInternalServerError } from "../../../../domain/src/errors/error";
 import { userService, getUserForResponse } from "../services/user/user.service";
 import { cryptoService } from "../services/crypto/crypto.service";
+import { UserLogin, UserLoginRequestModel } from "@no-name-store/domain";
 
 export function authController() {
   return {
@@ -45,6 +46,43 @@ export function authController() {
         return res.status(error.httpStatus).json({
           ok: false,
           message: error.message,
+        });
+      }
+    },
+
+    login: async (req: Request, res: Response) => {
+      try {
+        const { email, password }: UserLoginRequestModel = req.body;
+
+        const user = await UserLogin(
+          {
+            users: userService(),
+            crypto: cryptoService(),
+          },
+          { email, password }
+        );
+
+        if ("type" in user && "message" in user && "httpStatus" in user) {
+          return res.status(user.httpStatus).json({
+            ok: false,
+            message: user.message,
+          });
+        }
+
+        const token = await cryptoService().generateJWT(user);
+
+        const userResponse = getUserForResponse(user);
+
+        return res.status(200).json({
+          ok: true,
+          token,
+          data: userResponse,
+          message: "Login exitoso",
+        });
+      } catch (e) {
+        return res.status(500).json({
+          ok: false,
+          message: "Error interno del servidor al hacer login",
         });
       }
     },

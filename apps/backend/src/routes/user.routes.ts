@@ -4,9 +4,10 @@ import { requireAdmin } from "src/middleware/auth.middleware";
 
 const router = Router();
 
-const { getUserById, getAllUsers } = userController();
+const { getUserById, getAllUsers, updateUser } = userController();
 
 router.get("/:id", getUserById);
 router.get("/", requireAdmin, getAllUsers);
+router.put("/:id", updateUser);
 
 export default router;

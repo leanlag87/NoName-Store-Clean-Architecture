@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { userService, getUserForResponse } from "../services/user/user.service";
-import { createInternalServerError } from "../../../../domain/src/errors/error";
+import {
+  createInternalServerError,
+  createNotFoundError,
+  createForbiddenError,
+} from "../../../../domain/src/errors/error";
 
 export function userController() {
   return {
@@ -65,42 +69,81 @@ export function userController() {
         });
       }
     },
-    // updateUser: async (req: Request, res: Response) => {
-    //   try {
-    //     const { id } = req.params;
-    //     const updateData = req.body;
-    //     const userRepo = userService();
-    //     const existingUser = await userRepo.findById(id);
-    //     const updatedUserData = {
-    //       ...existingUser,
-    //       name: updateData.name || existingUser.name,
-    //       surname: updateData.surname || existingUser.surname,
-    //       image:
-    //         updateData.image !== undefined
-    //           ? updateData.image
-    //           : existingUser.image,
-    //     };
-    //     const updatedUser = await userRepo.update(updatedUserData);
-    //     const userResponse = getUserForResponse(updatedUser);
-    //     return res.status(200).json({
-    //       ok: true,
-    //       data: userResponse,
-    //       message: "Usuario actualizado con éxito",
-    //     });
-    //   } catch (e) {
-    //     console.error("Error in updateUser:", e);
-    //     const error =
-    //       e instanceof AppError
-    //         ? e
-    //         : createInternalServerError(
-    //             "Ups, hubo un error al actualizar el usuario"
-    //           );
-    //     return res.status(error.httpStatus).json({
-    //       ok: false,
-    //       message: error.message,
-    //     });
-    //   }
-    // },
+    updateUser: async (req: Request, res: Response) => {
+      try {
+        const { id } = req.params;
+        const updateData = req.body;
+        const userRepo = userService();
+        const currentUser = (req as any).user;
+
+        if (
+          !currentUser ||
+          (currentUser.id !== id && currentUser.role !== "admin")
+        ) {
+          const error = createForbiddenError(
+            "No tienes permisos para modificar este perfil"
+          );
+          return res.status(error.httpStatus).json({
+            ok: false,
+            message: error.message,
+          });
+        }
+
+        const existingUser = await userRepo.findById(id);
+        if (!existingUser) {
+          const error = createNotFoundError("Usuario no encontrado");
+          return res.status(error.httpStatus).json({
+            ok: false,
+            message: error.message,
+          });
+        }
+
+        const allowedFields: (keyof typeof existingUser)[] = [
+          "name",
+          "surname",
+          "image",
+        ];
+        const updatedUserData: Partial<typeof existingUser> = {
+          ...existingUser,
+        };
+        allowedFields.forEach((field) => {
+          if (updateData[field] !== undefined) {
+            updatedUserData[field] = updateData[field];
+          }
+        });
+
+        const updatedUser = await userRepo.update(
+          updatedUserData as typeof existingUser
+        );
+
+        if (!updatedUser) {
+          const error = createInternalServerError(
+            "No se pudo actualizar el usuario"
+          );
+          return res.status(error.httpStatus).json({
+            ok: false,
+            message: error.message,
+          });
+        }
+
+        const userResponse = getUserForResponse(updatedUser);
+
+        return res.status(200).json({
+          ok: true,
+          data: userResponse,
+          message: "Usuario actualizado con éxito",
+        });
+      } catch (e) {
+        console.log("Error in updateUser:", e);
+        const error = createInternalServerError(
+          "Error al actualizar el usuario"
+        );
+        return res.status(error.httpStatus).json({
+          ok: false,
+          message: error.message,
+        });
+      }
+    },
     // deleteUser: async (req: Request, res: Response) => {
     //   try {
     //     const { id } = req.params;
